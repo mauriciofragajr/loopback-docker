@@ -12,7 +12,7 @@ se tudo estiver certo, deve ter dois containers
 1) app loopback
 2) banco de dados mysql
 
-entrar no mysql que está rodando com docker, por default está exposto na 3608
+entrar no mysql que está rodando com docker, por default está exposto na 3606
 
 ```
 run script.sql no mysql
