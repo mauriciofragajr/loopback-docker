@@ -1,0 +1,61 @@
+CREATE TABLE IF NOT EXISTS Role (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(512) NOT NULL,
+  description VARCHAR(512) NOT NULL,
+  created DATETIME NULL,
+  modified DATETIME NULL,
+  PRIMARY KEY (id))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS RoleMapping (
+  id INT NOT NULL AUTO_INCREMENT,
+  principalId VARCHAR(255) NULL,
+  principalType VARCHAR(255) NULL,
+  roleId INT NOT NULL,
+  PRIMARY KEY (id, roleId),
+  INDEX fk_RoleMapping_Role1_idx (roleId ASC),
+  CONSTRAINT fk_RoleMapping_Role1
+    FOREIGN KEY (roleId)
+    REFERENCES Role (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS ACL (
+  id INT NOT NULL AUTO_INCREMENT,
+  model VARCHAR(512) NULL,
+  property VARCHAR(512) NULL,
+  accessType VARCHAR(512) NULL,
+  permission VARCHAR(512) NULL,
+  principalType VARCHAR(512) NULL,
+  principalId VARCHAR(512) NULL,
+  PRIMARY KEY (id))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS User (
+  id INT NOT NULL AUTO_INCREMENT,
+  realm VARCHAR(512) NULL,
+  username VARCHAR(512) NULL,
+  email VARCHAR(512) NOT NULL,
+  password VARCHAR(512) NOT NULL,
+  emailVerified TINYINT(1) NULL,
+  verificationToken VARCHAR(512) NULL,
+  PRIMARY KEY (id),
+  UNIQUE INDEX email_UNIQUE (email ASC),
+  UNIQUE INDEX id_UNIQUE (id ASC))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS AccessToken (
+  id INT NOT NULL AUTO_INCREMENT,
+  ttl INT NULL,
+  scopes TEXT NULL,
+  created DATETIME NULL,
+  userId INT NOT NULL,
+  PRIMARY KEY (id, userId),
+  INDEX fk_AccessToken_User1_idx (userId ASC),
+  CONSTRAINT fk_AccessToken_User1
+    FOREIGN KEY (userId)
+    REFERENCES User (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
