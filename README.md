@@ -17,3 +17,9 @@ entrar no mysql que está rodando com docker, por default está exposto na 3608
 ```
 run script.sql no mysql
 ```
+
+## Built With
+
+* [loopback](https://loopback.io/)
+* [docker](https://www.docker.com/)
+* [docker-compose](https://github.com/docker/compose)
